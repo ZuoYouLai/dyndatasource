@@ -1,0 +1,64 @@
+#执行的命令内容: java -jar xxx.jar --spring.profiles.active=test -Pprod 表示使用测试环境的配置
+#yml文件写法:之后一定需要空格
+#项目端口
+server:
+  port: 8787
+  servlet:
+    context-path: /
+
+# swagger 配置
+swagger:
+  open: true
+  host: localhost/
+
+# 项目数据源
+spring:
+  # mysql配置
+  datasource:
+    dynamic:
+#      primary: shushangyun #设置默认的数据源或者数据源组,默认值即为master
+      p6spy: true
+      type: com.alibaba.druid.pool.DruidDataSource   # 指定数据源为druid
+      datasource:
+        master:
+          username: root
+          password: n#bzjpypiOTul95a
+          url: jdbc:mysql://localhost:3366/shushangyun?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        temp:
+          username: root
+          password: n#bzjpypiOTul95a
+          url: jdbc:mysql://127.0.0.1:3366/shushangyun_temp_data?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+          driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+# 日志配置
+logging:
+  level:
+#    com.baomidou: info
+    root: info
+    #mapper层 sql日志 DEBUG级别输出
+    com.example.dyndatasource.mapper: debug
+    com.baomidou.dynamic: debug
+  config: classpath:logback-boot.xml
+  logName: ma-test-p
+  path: /Users/haodalai/project/logs
+
+
+
+# mybatis-plus的配置内容
+mybatis-plus:
+  configuration:
+    #驼峰下划线转换
+    map-underscore-to-camel-case: false
+  # 此处有坑 单模块加载也需要配置*(classpath 紧挨着的星) 解决自定义SQL无法执行
+  mapper-locations: classpath*:mapper/*Mapper.xml,classpath*:mapper/*/*Mapper.xml
+  typeAliasesPackage: com.example.dyndatasource
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 0
+
+
+
+
+
