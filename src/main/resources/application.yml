@@ -1,62 +1,84 @@
-#执行的命令内容: java -jar xxx.jar --spring.profiles.active=test -Pprod 表示使用测试环境的配置
-#yml文件写法:之后一定需要空格
-#项目端口
-server:
-  port: 8787
-  servlet:
-    context-path: /
-
-# swagger 配置
-swagger:
-  open: true
-  host: localhost/
-
 # 项目数据源
 spring:
-  # mysql配置
   datasource:
     dynamic:
-#      primary: shushangyun #设置默认的数据源或者数据源组,默认值即为master
       p6spy: true
-      type: com.alibaba.druid.pool.DruidDataSource   # 指定数据源为druid
+      #      druid: #以下是全局默认值，可以全局更改
+      #        initial-size:
+      #        max-active:
+      #        min-idle:
+      #        max-wait:
+      #        time-between-eviction-runs-millis:
+      #        time-between-log-stats-millis:
+      #        stat-sqlmax-size:
+      #        min-evictable-idle-time-millis:
+      #        max-evictable-idle-time-millis:
+      #        test-while-idle:
+      #        test-on-borrow:
+      #        test-on-return:
+      #        validation-query:
+      #        validation-query-timeout:
+      #        use-global-datasource-stat:
+      #        async-init:
+      #        clear-filters-enable:
+      #        reset-stat-enable:
+      #        not-full-timeout-retry-count:
+      #        max-wait-thread-count:
+      #        fail-fast:
+      #        phyTimeout-millis:
+      #        keep-alive:
+      #        pool-prepared-statements:
+      #        init-variants:
+      #        init-global-variants:
+      #        use-unfair-lock:
+      #        kill-when-socket-read-timeout:
+      #        connection-properties:
+      #        max-pool-prepared-statement-per-connection-size:
+      #        init-connection-sqls:
+      #        share-prepared-statements:
+      #        connection-errorretry-attempts:
+      #        break-after-acquire-failure:
+      #        filters: stat,wall # 注意这个值和druid原生不一致，默认启动了stat,wall
       datasource:
         master:
           username: root
           password: n#bzjpypiOTul95a
           url: jdbc:mysql://localhost:3366/shushangyun?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
           driver-class-name: com.mysql.cj.jdbc.Driver
-        temp:
+        slave_1:
           username: root
           password: n#bzjpypiOTul95a
-          url: jdbc:mysql://127.0.0.1:3366/shushangyun_temp_data?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+          url: jdbc:mysql://localhost:3366/shushangyun_temp_data?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
           driver-class-name: com.mysql.cj.jdbc.Driver
+          druid:
+            initial-size: 6
+        slave:
+          username: root
+          password: n#bzjpypiOTul95a
+          url: jdbc:mysql://localhost:3366/shushangyun_temp_data?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        slave_3:
+          username: root
+          password: n#bzjpypiOTul95a
+          url: jdbc:mysql://localhost:3366/shushangyun_temp_data?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+          driver-class-name: com.mysql.cj.jdbc.Driver
+
+
 
 
 # 日志配置
 logging:
   level:
-#    com.baomidou: info
-    root: info
     #mapper层 sql日志 DEBUG级别输出
     com.example.dyndatasource.mapper: debug
     com.baomidou.dynamic: debug
-  config: classpath:logback-boot.xml
-  logName: ma-test-p
-  path: /Users/haodalai/project/logs
-
 
 
 # mybatis-plus的配置内容
 mybatis-plus:
-  configuration:
-    #驼峰下划线转换
-    map-underscore-to-camel-case: false
   # 此处有坑 单模块加载也需要配置*(classpath 紧挨着的星) 解决自定义SQL无法执行
-  mapper-locations: classpath*:mapper/*Mapper.xml,classpath*:mapper/*/*Mapper.xml
+  mapper-locations: classpath*:mapper/*Mapper.xml
   typeAliasesPackage: com.example.dyndatasource
-  global-config:
-    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
-    id-type: 0
 
 
 
