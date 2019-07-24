@@ -24,13 +24,31 @@
         <p6spy.version>3.8.0</p6spy.version>
         <baomidou.version>2.5.3</baomidou.version>
         <boot.druid.version>1.1.14</boot.druid.version>
+        <hamcrest.version>1.3</hamcrest.version>
     </properties>
 
 
 
     <dependencies>
 
-    <dependency>
+
+        <!-- Needed by junit -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>${hamcrest.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JSON; -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+
+        <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
@@ -59,11 +77,11 @@
         <version>${mysql.version}</version>
     </dependency>
 
-    <dependency>
-        <groupId>com.baomidou</groupId>
-        <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-        <version>${baomidou.version}</version>
-    </dependency>
+    <!--<dependency>-->
+        <!--<groupId>com.baomidou</groupId>-->
+        <!--<artifactId>dynamic-datasource-spring-boot-starter</artifactId>-->
+        <!--<version>${baomidou.version}</version>-->
+    <!--</dependency>-->
 
     <dependency>
         <groupId>com.alibaba</groupId>

@@ -9,29 +9,36 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * @ Author     ：SamLai
- * @ Date       ：Created in 2019-07-19 18:04
+ * @ Date       ：Created in 2019-07-24 17:25
  * @ Description：
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DyndatasourceApplication.class)
 @Slf4j
 @Transactional
-public class SubWechatEventLogTest {
+public class DyTest {
 
 
     @Autowired
-    private TestService testService;
+    private TestService masterService;
+
+
+    @Autowired
+    private TestService tempService;
+
 
     @Test
-    public void list() {
-        List list = testService.list();
-        System.out.println(list.toArray().toString());
+    public void testA() {
+        masterService.list();
     }
 
 
+
+    @Test
+    public void testB() {
+        tempService.list();
+    }
 
 }

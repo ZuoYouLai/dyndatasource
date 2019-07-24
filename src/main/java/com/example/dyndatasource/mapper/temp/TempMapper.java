@@ -1,11 +1,13 @@
-package com.example.dyndatasource.mapper;
+package com.example.dyndatasource.mapper.temp;
 
 import com.example.dyndatasource.domain.SubCustomers;
 import com.example.dyndatasource.domain.SubCustomersExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
-public interface SubCustomersMapper {
+import java.util.List;
+
+public interface TempMapper {
     long countByExample(SubCustomersExample example);
 
     int deleteByExample(SubCustomersExample example);
@@ -33,4 +35,7 @@ public interface SubCustomersMapper {
     int updateByPrimaryKeyWithBLOBs(SubCustomers record);
 
     int updateByPrimaryKey(SubCustomers record);
+
+    @Select("SELECT * FROM sub_merchant_id_customers")
+    List<SubCustomers> list();
 }
