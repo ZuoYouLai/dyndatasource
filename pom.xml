@@ -19,7 +19,7 @@
         <mysql.version>8.0.13</mysql.version>
         <mybatis.plus.version>3.1.0</mybatis.plus.version>
         <lombok.version>1.18.6</lombok.version>
-        <fastjson.version>1.2.7</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <druid.boot.version>1.1.14</druid.boot.version>
         <p6spy.version>3.8.0</p6spy.version>
         <baomidou.version>2.5.3</baomidou.version>
